@@ -1,0 +1,28 @@
+# GitHub Pages Jekyll Configuration for FragIQ
+# Site settings
+title: FragIQ
+description: Track and manage your coral frag collection with photos, lineage, and health logs.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://penningtonstuart.github.io/fragIQ-legal" # Update with your actual GitHub Pages URL
+
+# Build settings
+theme: null
+plugins: []
+
+# Exclude from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Default settings
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+# Analytics (optional - add your tracking ID if desired)
+# google_analytics: UA-XXXXXXXX-X
