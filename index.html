@@ -136,9 +136,9 @@
       <h2>Get FragIQ</h2>
       <p>Currently available for Android devices. Join our closed beta program to get early access and help shape the future of FragIQ.</p>
       <div class="btn-group">
-        <a href="https://play.google.com/store/apps/details?id=com.fragg3d.fragiq" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+        <button type="button" class="btn btn-primary" onclick="openBetaModal()">
           Join Beta on Google Play
-        </a>
+        </button>
       </div>
       <p style="margin-top: 24px; font-size: 14px; color: var(--text-muted);">
         iOS version coming soon!
@@ -162,5 +162,226 @@
       </div>
     </div>
   </footer>
+
+  <!-- Beta Signup Modal -->
+  <div id="betaModal" class="modal-overlay" onclick="closeBetaModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button type="button" class="modal-close" onclick="closeBetaModal()" aria-label="Close">&times;</button>
+      
+      <div class="modal-header">
+        <h2>Join the FragIQ Beta</h2>
+        <p>Help us shape the future of coral frag management!</p>
+      </div>
+
+      <form id="betaSignupForm" onsubmit="submitBetaForm(event)">
+        <!-- Required Information -->
+        <div class="form-section">
+          <h3>📧 Google Play Account</h3>
+          <div class="form-group">
+            <label for="email">Google Play Email Address <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required 
+                   placeholder="your.email@gmail.com"
+                   title="This email will be added to our Google Play Console for closed testing">
+            <span class="form-hint">This email will be whitelisted for closed beta access</span>
+          </div>
+        </div>
+
+        <!-- Device Details -->
+        <div class="form-section">
+          <h3>📱 Device Information</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="deviceModel">Phone Model <span class="required">*</span></label>
+              <input type="text" id="deviceModel" name="deviceModel" required 
+                     placeholder="e.g., Pixel 7, Samsung S23">
+            </div>
+            <div class="form-group">
+              <label for="androidVersion">Android Version <span class="required">*</span></label>
+              <select id="androidVersion" name="androidVersion" required>
+                <option value="">Select version</option>
+                <option value="Android 14">Android 14</option>
+                <option value="Android 13">Android 13</option>
+                <option value="Android 12">Android 12</option>
+                <option value="Android 11">Android 11</option>
+                <option value="Android 10">Android 10</option>
+                <option value="Android 9 or older">Android 9 or older</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Profile -->
+        <div class="form-section">
+          <h3>👤 Your Experience</h3>
+          <div class="form-group">
+            <label for="experienceLevel">Experience with reef keeping apps <span class="required">*</span></label>
+            <select id="experienceLevel" name="experienceLevel" required>
+              <option value="">Select your experience level</option>
+              <option value="Beginner">Beginner - New to reef keeping apps</option>
+              <option value="Intermediate">Intermediate - Used a few apps occasionally</option>
+              <option value="Power User">Power User - Regularly use multiple apps</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="useCases">How do you plan to use FragIQ? <span class="required">*</span></label>
+            <textarea id="useCases" name="useCases" required rows="2"
+                      placeholder="e.g., Track my frag collection, monitor tank parameters, document coral growth..."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="competitorApps">Have you used similar apps? If so, which ones?</label>
+            <input type="text" id="competitorApps" name="competitorApps" 
+                   placeholder="e.g., Apex Fusion, CoralVue, none">
+          </div>
+        </div>
+
+        <!-- Commitment -->
+        <div class="form-section">
+          <h3>✅ Beta Tester Commitment</h3>
+          <div class="form-group checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="commitment14Days" name="commitment14Days" required>
+              <span class="checkmark"></span>
+              <span>I commit to testing FragIQ for at least 14 consecutive days <span class="required">*</span></span>
+            </label>
+            <span class="form-hint">Required by Google Play Console for closed testing</span>
+          </div>
+          <div class="form-group checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="commitmentFeedback" name="commitmentFeedback" required>
+              <span class="checkmark"></span>
+              <span>I'm willing to provide detailed feedback on bugs and features <span class="required">*</span></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Optional Information -->
+        <div class="form-section">
+          <h3>💬 Optional Information</h3>
+          <div class="form-group">
+            <label for="feedbackChannel">Preferred Feedback Channel</label>
+            <select id="feedbackChannel" name="feedbackChannel">
+              <option value="">Select preference (optional)</option>
+              <option value="In-App">In-App Feedback</option>
+              <option value="Email">Email</option>
+              <option value="Survey">Survey</option>
+              <option value="Any">Any method is fine</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="testingInterests">Which features are you most excited to try?</label>
+            <textarea id="testingInterests" name="testingInterests" rows="2"
+                      placeholder="e.g., Lineage tracking, photo gallery, tank parameters..."></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+            Submit Application
+          </button>
+          <p class="form-disclaimer">
+            By submitting, you agree to our <a href="privacy.html" target="_blank">Privacy Policy</a>. 
+            Your information will only be used for beta testing purposes.
+          </p>
+        </div>
+      </form>
+
+      <!-- Success Message -->
+      <div id="formSuccess" class="form-success" style="display: none;">
+        <div class="success-icon">🎉</div>
+        <h3>Application Submitted!</h3>
+        <p>Thank you for joining the FragIQ beta program. We'll add your email to our Google Play Console and you'll receive an invite shortly.</p>
+        <p class="success-note">Check your email (including spam folder) for the Google Play beta invite.</p>
+        <button type="button" class="btn btn-secondary" onclick="closeBetaModal()">Close</button>
+      </div>
+
+      <!-- Error Message -->
+      <div id="formError" class="form-error" style="display: none;">
+        <div class="error-icon">⚠️</div>
+        <h3>Submission Failed</h3>
+        <p id="errorMessage">Something went wrong. Please try again or contact us directly.</p>
+        <button type="button" class="btn btn-secondary" onclick="resetForm()">Try Again</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Configuration - Replace with your Google Apps Script Web App URL
+    const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+    function openBetaModal() {
+      document.getElementById('betaModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeBetaModal(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('betaModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function resetForm() {
+      document.getElementById('betaSignupForm').style.display = 'block';
+      document.getElementById('formSuccess').style.display = 'none';
+      document.getElementById('formError').style.display = 'none';
+      document.getElementById('submitBtn').disabled = false;
+      document.getElementById('submitBtn').textContent = 'Submit Application';
+    }
+
+    async function submitBetaForm(event) {
+      event.preventDefault();
+      
+      const form = document.getElementById('betaSignupForm');
+      const submitBtn = document.getElementById('submitBtn');
+      
+      // Disable button and show loading
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+
+      // Collect form data
+      const formData = {
+        timestamp: new Date().toISOString(),
+        email: document.getElementById('email').value,
+        deviceModel: document.getElementById('deviceModel').value,
+        androidVersion: document.getElementById('androidVersion').value,
+        experienceLevel: document.getElementById('experienceLevel').value,
+        useCases: document.getElementById('useCases').value,
+        competitorApps: document.getElementById('competitorApps').value || 'Not specified',
+        commitment14Days: document.getElementById('commitment14Days').checked ? 'Yes' : 'No',
+        commitmentFeedback: document.getElementById('commitmentFeedback').checked ? 'Yes' : 'No',
+        feedbackChannel: document.getElementById('feedbackChannel').value || 'Not specified',
+        testingInterests: document.getElementById('testingInterests').value || 'Not specified'
+      };
+
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors', // Required for Google Apps Script
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        });
+
+        // With no-cors, we can't read the response, but if no error was thrown, assume success
+        form.style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+        form.reset();
+
+      } catch (error) {
+        console.error('Form submission error:', error);
+        document.getElementById('errorMessage').textContent = 
+          'Network error. Please check your connection and try again, or email us at fragg3d.reef.innovation@gmail.com';
+        form.style.display = 'none';
+        document.getElementById('formError').style.display = 'block';
+      }
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeBetaModal();
+      }
+    });
+  </script>
 </body>
 </html>
