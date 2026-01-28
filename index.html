@@ -111,22 +111,51 @@
     </div>
   </section>
 
-  <!-- Screenshots Section (placeholder) -->
+  <!-- Screenshots Section -->
   <section class="screenshots">
     <div class="container">
       <h2>See FragIQ in Action</h2>
-      <div class="screenshots-grid">
-        <!-- Screenshots will be added here -->
-        <div class="screenshot-item">
-          <img src="assets/screenshots/frags-list.png" alt="Frags List Screen" onerror="this.style.display='none'">
+      <div class="carousel-wrapper">
+        <button class="carousel-btn carousel-btn-prev" onclick="moveCarousel(-1)" aria-label="Previous screenshot">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="carousel-container">
+          <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-slide">
+              <img src="assets/screenshots/Screenshot_1769571162.png" alt="FragIQ Dashboard - Overview of your coral collection">
+              <p class="slide-caption">Dashboard Overview</p>
+            </div>
+            <div class="carousel-slide">
+              <img src="assets/screenshots/Screenshot_1769571177.png" alt="Frag Collection - Browse all your corals">
+              <p class="slide-caption">Frag Collection</p>
+            </div>
+            <div class="carousel-slide">
+              <img src="assets/screenshots/Screenshot_1769571224.png" alt="Frag Details - View coral information">
+              <p class="slide-caption">Frag Details</p>
+            </div>
+            <div class="carousel-slide">
+              <img src="assets/screenshots/Screenshot_1769571276.png" alt="Photo Gallery - Document your coral growth">
+              <p class="slide-caption">Photo Gallery</p>
+            </div>
+            <div class="carousel-slide">
+              <img src="assets/screenshots/Screenshot_1769571301.png" alt="Tank Management - Monitor your tanks">
+              <p class="slide-caption">Tank Management</p>
+            </div>
+            <div class="carousel-slide">
+              <img src="assets/screenshots/Screenshot_1769571405.png" alt="Water Parameters - Track tank conditions">
+              <p class="slide-caption">Water Parameters</p>
+            </div>
+            <div class="carousel-slide">
+              <img src="assets/screenshots/Screenshot_1769572638.png" alt="Lineage Tracking - Follow coral history">
+              <p class="slide-caption">Lineage Tracking</p>
+            </div>
+          </div>
         </div>
-        <div class="screenshot-item">
-          <img src="assets/screenshots/frag-detail.png" alt="Frag Detail Screen" onerror="this.style.display='none'">
-        </div>
-        <div class="screenshot-item">
-          <img src="assets/screenshots/add-frag.png" alt="Add Frag Screen" onerror="this.style.display='none'">
-        </div>
+        <button class="carousel-btn carousel-btn-next" onclick="moveCarousel(1)" aria-label="Next screenshot">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
       </div>
+      <div class="carousel-dots" id="carouselDots"></div>
     </div>
   </section>
 
@@ -305,6 +334,66 @@
   </div>
 
   <script>
+    // Carousel functionality
+    let currentSlide = 0;
+    const track = document.getElementById('carouselTrack');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const totalSlides = slides.length;
+    const dotsContainer = document.getElementById('carouselDots');
+
+    // Create dots
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('button');
+      dot.classList.add('carousel-dot');
+      if (i === 0) dot.classList.add('active');
+      dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      dot.onclick = () => goToSlide(i);
+      dotsContainer.appendChild(dot);
+    }
+
+    function updateCarousel() {
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+    }
+
+    function moveCarousel(direction) {
+      currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateCarousel();
+    }
+
+    // Auto-advance carousel every 5 seconds
+    let autoSlide = setInterval(() => moveCarousel(1), 5000);
+
+    // Pause auto-advance on hover
+    document.querySelector('.carousel-wrapper').addEventListener('mouseenter', () => {
+      clearInterval(autoSlide);
+    });
+
+    document.querySelector('.carousel-wrapper').addEventListener('mouseleave', () => {
+      autoSlide = setInterval(() => moveCarousel(1), 5000);
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    track.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) moveCarousel(1);
+      if (touchEndX - touchStartX > 50) moveCarousel(-1);
+    }, { passive: true });
+
     // Configuration - Replace with your Google Apps Script Web App URL
     const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
 
