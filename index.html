@@ -163,15 +163,15 @@
   <section id="download" class="download-section">
     <div class="container">
       <h2>Get FragIQ</h2>
-      <p>Currently available for Android devices. Join our closed beta program to get early access and help shape the future of FragIQ.</p>
+      <p>Join our closed beta program to get early access and help shape the future of FragIQ.</p>
       <div class="btn-group">
-        <button type="button" class="btn btn-primary" onclick="openBetaModal()">
-          Join Beta on Google Play
+        <button type="button" class="btn btn-primary btn-android" onclick="openBetaModal()">
+          <span class="btn-icon">🤖</span> Join Beta on Google Play
+        </button>
+        <button type="button" class="btn btn-primary btn-ios" onclick="openIosBetaModal()">
+          <span class="btn-icon">🍎</span> Join Beta on TestFlight
         </button>
       </div>
-      <p style="margin-top: 24px; font-size: 14px; color: var(--text-muted);">
-        iOS version coming soon!
-      </p>
     </div>
   </section>
 
@@ -191,6 +191,147 @@
       </div>
     </div>
   </footer>
+
+  <!-- iOS Beta Signup Modal -->
+  <div id="iosBetaModal" class="modal-overlay" onclick="closeIosBetaModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button type="button" class="modal-close" onclick="closeIosBetaModal()" aria-label="Close">&times;</button>
+      
+      <div class="modal-header">
+        <h2>🍎 Join the FragIQ iOS Beta</h2>
+        <p>Get early access via TestFlight and help shape FragIQ on iOS!</p>
+      </div>
+
+      <form id="iosBetaSignupForm" onsubmit="submitIosBetaForm(event)">
+        <!-- Required Information -->
+        <div class="form-section">
+          <h3>📧 Apple ID / Contact Email</h3>
+          <div class="form-group">
+            <label for="iosEmail">Email Address <span class="required">*</span></label>
+            <input type="email" id="iosEmail" name="email" required 
+                   placeholder="your.email@icloud.com"
+                   title="This email will be used to send your TestFlight invite">
+            <span class="form-hint">We'll send your TestFlight beta invite to this email</span>
+          </div>
+        </div>
+
+        <!-- Device Details -->
+        <div class="form-section">
+          <h3>📱 Device Information</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="iosDeviceModel">Device Model <span class="required">*</span></label>
+              <input type="text" id="iosDeviceModel" name="deviceModel" required 
+                     placeholder="e.g., iPhone 15 Pro, iPad Air">
+            </div>
+            <div class="form-group">
+              <label for="iosVersion">iOS Version <span class="required">*</span></label>
+              <select id="iosVersion" name="iosVersion" required>
+                <option value="">Select version</option>
+                <option value="iOS 18">iOS 18</option>
+                <option value="iOS 17">iOS 17</option>
+                <option value="iOS 16">iOS 16</option>
+                <option value="iOS 15">iOS 15</option>
+                <option value="iOS 14 or older">iOS 14 or older</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Profile -->
+        <div class="form-section">
+          <h3>👤 Your Experience</h3>
+          <div class="form-group">
+            <label for="iosExperienceLevel">Experience with reef keeping apps <span class="required">*</span></label>
+            <select id="iosExperienceLevel" name="experienceLevel" required>
+              <option value="">Select your experience level</option>
+              <option value="Beginner">Beginner - New to reef keeping apps</option>
+              <option value="Intermediate">Intermediate - Used a few apps occasionally</option>
+              <option value="Power User">Power User - Regularly use multiple apps</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="iosUseCases">How do you plan to use FragIQ? <span class="required">*</span></label>
+            <textarea id="iosUseCases" name="useCases" required rows="2"
+                      placeholder="e.g., Track my frag collection, monitor tank parameters, document coral growth..."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="iosCompetitorApps">Have you used similar apps? If so, which ones?</label>
+            <input type="text" id="iosCompetitorApps" name="competitorApps" 
+                   placeholder="e.g., Apex Fusion, CoralVue, none">
+          </div>
+        </div>
+
+        <!-- Commitment -->
+        <div class="form-section">
+          <h3>✅ Beta Tester Commitment</h3>
+          <div class="form-group checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="iosCommitment14Days" name="commitment14Days" required>
+              <span class="checkmark"></span>
+              <span>I commit to testing FragIQ for at least 14 consecutive days <span class="required">*</span></span>
+            </label>
+            <span class="form-hint">Helps us gather meaningful usage data during the beta period</span>
+          </div>
+          <div class="form-group checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="iosCommitmentFeedback" name="commitmentFeedback" required>
+              <span class="checkmark"></span>
+              <span>I'm willing to provide detailed feedback on bugs and features <span class="required">*</span></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Optional Information -->
+        <div class="form-section">
+          <h3>💬 Optional Information</h3>
+          <div class="form-group">
+            <label for="iosFeedbackChannel">Preferred Feedback Channel</label>
+            <select id="iosFeedbackChannel" name="feedbackChannel">
+              <option value="">Select preference (optional)</option>
+              <option value="TestFlight">TestFlight Feedback</option>
+              <option value="In-App">In-App Feedback</option>
+              <option value="Email">Email</option>
+              <option value="Survey">Survey</option>
+              <option value="Any">Any method is fine</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="iosTestingInterests">Which features are you most excited to try?</label>
+            <textarea id="iosTestingInterests" name="testingInterests" rows="2"
+                      placeholder="e.g., Lineage tracking, photo gallery, tank parameters..."></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-ios btn-full" id="iosSubmitBtn">
+            Submit Application
+          </button>
+          <p class="form-disclaimer">
+            By submitting, you agree to our <a href="privacy.html" target="_blank">Privacy Policy</a>. 
+            Your information will only be used for beta testing purposes.
+          </p>
+        </div>
+      </form>
+
+      <!-- Success Message -->
+      <div id="iosFormSuccess" class="form-success" style="display: none;">
+        <div class="success-icon">🎉</div>
+        <h3>Application Submitted!</h3>
+        <p>Thank you for joining the FragIQ iOS beta program. We'll send a TestFlight invite to your email shortly.</p>
+        <p class="success-note">Check your email (including spam folder) for the TestFlight beta invite from Apple.</p>
+        <button type="button" class="btn btn-secondary" onclick="closeIosBetaModal()">Close</button>
+      </div>
+
+      <!-- Error Message -->
+      <div id="iosFormError" class="form-error" style="display: none;">
+        <div class="error-icon">⚠️</div>
+        <h3>Submission Failed</h3>
+        <p id="iosErrorMessage">Something went wrong. Please try again or contact us directly.</p>
+        <button type="button" class="btn btn-secondary" onclick="resetIosForm()">Try Again</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Beta Signup Modal -->
   <div id="betaModal" class="modal-overlay" onclick="closeBetaModal(event)">
@@ -438,23 +579,24 @@
         commitment14Days: document.getElementById('commitment14Days').checked ? 'Yes' : 'No',
         commitmentFeedback: document.getElementById('commitmentFeedback').checked ? 'Yes' : 'No',
         feedbackChannel: document.getElementById('feedbackChannel').value || 'Not specified',
-        testingInterests: document.getElementById('testingInterests').value || 'Not specified'
+        testingInterests: document.getElementById('testingInterests').value || 'Not specified',
+        platform: 'Android'
       };
 
       try {
         const response = await fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
-          mode: 'no-cors', // Required for Google Apps Script
-          headers: {
-            'Content-Type': 'application/json',
-          },
           body: JSON.stringify(formData)
         });
 
-        // With no-cors, we can't read the response, but if no error was thrown, assume success
-        form.style.display = 'none';
-        document.getElementById('formSuccess').style.display = 'block';
-        form.reset();
+        const result = await response.json();
+        if (result.status === 'success') {
+          form.style.display = 'none';
+          document.getElementById('formSuccess').style.display = 'block';
+          form.reset();
+        } else {
+          throw new Error(result.message || 'Submission failed');
+        }
 
       } catch (error) {
         console.error('Form submission error:', error);
@@ -465,10 +607,79 @@
       }
     }
 
+    // iOS Beta Modal Functions
+    function openIosBetaModal() {
+      document.getElementById('iosBetaModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeIosBetaModal(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('iosBetaModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function resetIosForm() {
+      document.getElementById('iosBetaSignupForm').style.display = 'block';
+      document.getElementById('iosFormSuccess').style.display = 'none';
+      document.getElementById('iosFormError').style.display = 'none';
+      document.getElementById('iosSubmitBtn').disabled = false;
+      document.getElementById('iosSubmitBtn').textContent = 'Submit Application';
+    }
+
+    async function submitIosBetaForm(event) {
+      event.preventDefault();
+      
+      const form = document.getElementById('iosBetaSignupForm');
+      const submitBtn = document.getElementById('iosSubmitBtn');
+      
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+
+      const formData = {
+        timestamp: new Date().toISOString(),
+        email: document.getElementById('iosEmail').value,
+        deviceModel: document.getElementById('iosDeviceModel').value,
+        androidVersion: document.getElementById('iosVersion').value,
+        experienceLevel: document.getElementById('iosExperienceLevel').value,
+        useCases: document.getElementById('iosUseCases').value,
+        competitorApps: document.getElementById('iosCompetitorApps').value || 'Not specified',
+        commitment14Days: document.getElementById('iosCommitment14Days').checked ? 'Yes' : 'No',
+        commitmentFeedback: document.getElementById('iosCommitmentFeedback').checked ? 'Yes' : 'No',
+        feedbackChannel: document.getElementById('iosFeedbackChannel').value || 'Not specified',
+        testingInterests: document.getElementById('iosTestingInterests').value || 'Not specified',
+        platform: 'iOS'
+      };
+
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+        if (result.status === 'success') {
+          form.style.display = 'none';
+          document.getElementById('iosFormSuccess').style.display = 'block';
+          form.reset();
+        } else {
+          throw new Error(result.message || 'Submission failed');
+        }
+
+      } catch (error) {
+        console.error('iOS form submission error:', error);
+        document.getElementById('iosErrorMessage').textContent = 
+          'Network error. Please check your connection and try again, or email us at fragg3d.reef.innovation@gmail.com';
+        form.style.display = 'none';
+        document.getElementById('iosFormError').style.display = 'block';
+      }
+    }
+
     // Close modal with Escape key
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape') {
         closeBetaModal();
+        closeIosBetaModal();
       }
     });
   </script>

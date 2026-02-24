@@ -367,6 +367,24 @@ footer {
   transform: scale(1.05);
 }
 
+/* Platform Buttons */
+.btn-android {
+  background-color: var(--accent-primary);
+}
+
+.btn-ios {
+  background: linear-gradient(135deg, #5856D6, #AF52DE);
+}
+
+.btn-ios:hover {
+  background: linear-gradient(135deg, #4A48C4, #9B3FCB);
+  transform: translateY(-2px);
+}
+
+.btn-icon {
+  margin-right: 6px;
+}
+
 /* Beta Banner */
 .beta-banner {
   background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
