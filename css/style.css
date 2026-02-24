@@ -372,12 +372,16 @@ footer {
   background-color: var(--accent-primary);
 }
 
+.btn-android:hover {
+  background-color: #0284C7;
+}
+
 .btn-ios {
-  background: linear-gradient(135deg, #5856D6, #AF52DE);
+  background: linear-gradient(135deg, #06B6D4, #0E7490);
 }
 
 .btn-ios:hover {
-  background: linear-gradient(135deg, #4A48C4, #9B3FCB);
+  background: linear-gradient(135deg, #0891B2, #065666);
   transform: translateY(-2px);
 }
 
@@ -679,7 +683,8 @@ footer {
 }
 
 /* Form Styles */
-#betaSignupForm {
+#betaSignupForm,
+#iosBetaSignupForm {
   padding: 24px 32px 32px;
 }
 
@@ -883,7 +888,8 @@ textarea {
     font-size: 22px;
   }
 
-  #betaSignupForm {
+  #betaSignupForm,
+  #iosBetaSignupForm {
     padding: 20px;
   }
 
