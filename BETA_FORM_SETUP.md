@@ -131,7 +131,7 @@ function testConnection() {
    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwuD5dQ7QdSG59-z9au-2oQCbi5LH9WTLu-L4ek5NNRpIAQL5MLQheKfUda-r_0cg0RkQ/exec';
    ```
 
-3. Replace `YOUR_GOOGLE_APPS_SCRIPT_URL_HERE` with your Web App URL from Step 3
+3. The URL is already configured. If you redeploy the Apps Script, update this URL with the new Web App URL from Step 3.
 
 4. Save and deploy your site
 
